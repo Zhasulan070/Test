@@ -39,21 +39,16 @@ namespace Test.Controllers
             }
             catch (Exception e)
             {
-                var a = new ResponseDto
-                {
-                    Found = false,
-                    Updated = false,
-                    Success = false
-                };
+                
                 if (!(e.InnerException is SocketException) && (e is DataException || e is ExternalException || e is HttpRequestException))
                 {
                     Log.Warning(e,"Source Exception thrown on URL {DisplayUrl}", HttpContext.Request.GetDisplayUrl());
-                    return BadRequest(a);
+                    return BadRequest();
                 }
                 else
                 {   
                     Log.Error(e, "Uncaught Service Exception thrown on URL {DisplayUrl}", HttpContext.Request.GetDisplayUrl());
-                    return StatusCode((int) HttpStatusCode.InternalServerError, a);
+                    return StatusCode((int) HttpStatusCode.InternalServerError);
                 }
             }
         }
@@ -68,21 +63,15 @@ namespace Test.Controllers
             }
             catch (Exception e)
             {
-                var a = new ResponseDto
-                {
-                    Found = false,
-                    Updated = false,
-                    Success = false
-                };
                 if (!(e.InnerException is SocketException) && (e is DataException || e is ExternalException || e is HttpRequestException))
                 {
                     Log.Warning(e,"Source Exception thrown on URL {DisplayUrl}", HttpContext.Request.GetDisplayUrl());
-                    return BadRequest(a);
+                    return BadRequest();
                 }
                 else
                 {   
                     Log.Error(e, "Uncaught Service Exception thrown on URL {DisplayUrl}", HttpContext.Request.GetDisplayUrl());
-                    return StatusCode((int) HttpStatusCode.InternalServerError, a);
+                    return StatusCode((int) HttpStatusCode.InternalServerError);
                 }
             }
         }

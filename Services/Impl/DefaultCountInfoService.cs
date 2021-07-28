@@ -27,10 +27,7 @@ namespace Test.Services.Impl
 
             return new ImageInfoDto
             {
-                Success = true,
-                Updated = true,
-                Found = true,
-                Message = imageInfos
+                Data = imageInfos
             };
         }
     }

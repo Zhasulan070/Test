@@ -81,10 +81,7 @@ namespace Test.Services.Impl
 
             return new UserInfoDto
             {
-                Success = true,
-                Updated = true,
-                Found = true,
-                Message = countInfos
+                Data = countInfos
             };
         }
     }
