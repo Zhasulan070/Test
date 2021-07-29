@@ -70,13 +70,13 @@ namespace Test.Services.Impl
             }
         }
 
-        public async Task<UserInfoDto> UserInfo(long userId, long imageId)
+        public async Task<ImageInfoDto> ImageInfo(long userId, long imageId)
         {
             await AddCount(userId, imageId);
-            var context = _context.UserInfos.FirstOrDefaultAsync(x=>x.UserId == userId && x.ImageId == imageId).Result;
-            return new UserInfoDto
+            var context = _context.ImageInfos.FirstOrDefaultAsync(x=>x.ImageId == imageId).Result;
+            return new ImageInfoDto
             {
-                Data = context != null ? context : null
+                Data = context
             };
         }
     }

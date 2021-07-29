@@ -5,6 +5,6 @@ namespace Test.Services
 {
     public interface IAddCountService
     {
-        Task<UserInfoDto> UserInfo(long userId, long imageId);
+        Task<ImageInfoDto> ImageInfo(long userId, long imageId);
     }
 }

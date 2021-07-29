@@ -17,12 +17,12 @@ namespace Test.Services.Impl
             _context = context;
         }
 
-        public async Task<ImageInfoDto> LoadCountInfo()
+        public async Task<ImagesInfoDto> LoadCountInfo()
         {
             var context = _context.ImageInfos;
             var imageInfos = context.ToList();
 
-            return new ImageInfoDto
+            return new ImagesInfoDto
             {
                 Data = imageInfos
             };

@@ -5,6 +5,6 @@ namespace Test.Services
 {
     public interface ICountInfoService
     {
-        Task<ImageInfoDto> LoadCountInfo();
+        Task<ImagesInfoDto> LoadCountInfo();
     }
 }

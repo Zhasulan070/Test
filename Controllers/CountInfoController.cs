@@ -79,12 +79,12 @@ namespace Test.Controllers
             }
         }
         
-        [HttpPost("UserInfo")]
+        [HttpPost("ImageInfo")]
         public async Task<IActionResult> AddCount([FromQuery(Name = "imageId")] string imageId, [FromQuery(Name = "userId")] string userId)
         {
             try
             {
-                var a = await _serviceAdd.UserInfo(long.Parse(userId), long.Parse(imageId));
+                var a = await _serviceAdd.ImageInfo(long.Parse(userId), long.Parse(imageId));
                 return Ok(a);
             }
             catch (Exception e)
