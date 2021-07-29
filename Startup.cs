@@ -35,6 +35,7 @@ namespace Test
         public void ConfigureServices(IServiceCollection services)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            services.AddCors();
             services.AddControllers();
             services.AddDbContext<CountInfoContext>(opt =>
                 opt.UseNpgsql(Configuration.GetConnectionString("MyWebApiConnection")));
@@ -60,10 +61,13 @@ namespace Test
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors((builder => builder
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true) // allow any origin
+                .AllowCredentials()));
             app.UseAuthorization();
-
-            app.UseCors((builder => builder.AllowAnyOrigin()));
+            
 
             app.UseEndpoints(endpoints =>
             {

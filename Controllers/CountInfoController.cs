@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
+using Test.Models;
 using Test.Models.Dto;
 using Test.Services;
 using Test.Services.Impl;
@@ -80,11 +81,11 @@ namespace Test.Controllers
         }
         
         [HttpPost("ImageInfo")]
-        public async Task<IActionResult> AddCount([FromQuery(Name = "imageId")] string imageId, [FromQuery(Name = "userId")] string userId)
+        public async Task<IActionResult> AddCount([FromBody] Body body)
         {
             try
             {
-                var a = await _serviceAdd.ImageInfo(long.Parse(userId), long.Parse(imageId));
+                var a = await _serviceAdd.ImageInfo(body.UserId, body.ImageId);
                 return Ok(a);
             }
             catch (Exception e)
