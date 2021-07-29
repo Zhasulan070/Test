@@ -40,6 +40,7 @@ namespace Test
                 opt.UseNpgsql(Configuration.GetConnectionString("MyWebApiConnection")));
             services.AddScoped<ICountInfoService, DefaultCountInfoService>();
             services.AddScoped<IAddCountService, DefaultAddCountService>();
+            services.AddScoped<IGetUsersInfo, DefaultGetUserUnfo>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Test", Version = "v1" });

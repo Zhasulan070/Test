@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using Test.Models.Dto;
 using Test.Services;
+using Test.Services.Impl;
 
 namespace Test.Controllers
 {
@@ -22,14 +23,16 @@ namespace Test.Controllers
     {
         private readonly ICountInfoService _service;
         private readonly IAddCountService _serviceAdd;
+        private readonly IGetUsersInfo _serviceGet;
 
-        public CountInfoController(ICountInfoService service, IAddCountService serviceAdd)
+        public CountInfoController(ICountInfoService service, IAddCountService serviceAdd, IGetUsersInfo serviceGet)
         {
             _service = service;
             _serviceAdd = serviceAdd;
+            _serviceGet = serviceGet;
         }
 
-        [HttpGet]
+        [HttpGet("ImagesInfo")]
         public async Task<IActionResult> LoadCountInfo()
         {
             try
@@ -53,12 +56,35 @@ namespace Test.Controllers
             }
         }
         
-        [HttpPost("image")]
+        [HttpGet("UsersInfo")]
+        public async Task<IActionResult> AddCount()
+        {
+            try
+            {
+                var a = await _serviceGet.UsersInfo();
+                return Ok(a);
+            }
+            catch (Exception e)
+            {
+                if (!(e.InnerException is SocketException) && (e is DataException || e is ExternalException || e is HttpRequestException))
+                {
+                    Log.Warning(e,"Source Exception thrown on URL {DisplayUrl}", HttpContext.Request.GetDisplayUrl());
+                    return BadRequest();
+                }
+                else
+                {   
+                    Log.Error(e, "Uncaught Service Exception thrown on URL {DisplayUrl}", HttpContext.Request.GetDisplayUrl());
+                    return StatusCode((int) HttpStatusCode.InternalServerError);
+                }
+            }
+        }
+        
+        [HttpPost("UserInfo")]
         public async Task<IActionResult> AddCount([FromQuery(Name = "imageId")] string imageId, [FromQuery(Name = "userId")] string userId)
         {
             try
             {
-                var a = await _serviceAdd.UsersInfo(long.Parse(userId), long.Parse(imageId));
+                var a = await _serviceAdd.UserInfo(long.Parse(userId), long.Parse(imageId));
                 return Ok(a);
             }
             catch (Exception e)

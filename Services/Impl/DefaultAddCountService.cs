@@ -70,19 +70,13 @@ namespace Test.Services.Impl
             }
         }
 
-        public async Task<UserInfoDto> UsersInfo(long userId, long imageId)
+        public async Task<UserInfoDto> UserInfo(long userId, long imageId)
         {
             await AddCount(userId, imageId);
-            var countInfos = new List<UserInfo>();
-            var context = _context.UserInfos;
-            await foreach (var info in context)
-            {
-                countInfos.Add(info);
-            }
-
+            var context = _context.UserInfos.FirstOrDefaultAsync(x=>x.UserId == userId && x.ImageId == imageId).Result;
             return new UserInfoDto
             {
-                Data = countInfos
+                Data = context != null ? context : null
             };
         }
     }

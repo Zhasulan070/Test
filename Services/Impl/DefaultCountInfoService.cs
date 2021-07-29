@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Test.Context;
 using Test.Models;
@@ -18,12 +19,8 @@ namespace Test.Services.Impl
 
         public async Task<ImageInfoDto> LoadCountInfo()
         {
-            var imageInfos = new List<ImageInfo>();
             var context = _context.ImageInfos;
-            await foreach (var info in context)
-            {
-               imageInfos.Add(info);
-            }
+            var imageInfos = context.ToList();
 
             return new ImageInfoDto
             {
