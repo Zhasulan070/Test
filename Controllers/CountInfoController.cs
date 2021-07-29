@@ -53,8 +53,8 @@ namespace Test.Controllers
             }
         }
         
-        [HttpGet("{userid}/{imageid}")]
-        public async Task<IActionResult> AddCount(string userId, string imageId)
+        [HttpPost("image")]
+        public async Task<IActionResult> AddCount([FromQuery(Name = "imageId")] string imageId, [FromQuery(Name = "userId")] string userId)
         {
             try
             {

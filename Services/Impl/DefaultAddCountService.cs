@@ -43,6 +43,7 @@ namespace Test.Services.Impl
             {
                 var userinfo = new UserInfo
                 {
+                    UserId = userId,
                     Count = 1,
                     Date = DateTime.Now,
                     ImageId = imageId
